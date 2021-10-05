@@ -2,13 +2,16 @@
 title: "plotly_stacked_bar_chart"
 author: "David Taylor"
 date: "10/4/2021"
-output: html_document
+output: ioslides_presentation
 ---
+
 
 # Tornadoes in Texas since 1950
 
 ## 1. Synopsis
 This assignment consists in creating a staked bar chart with plotly with tornado data that was collected for Texas since 1950. The data was downloaded from the U.S. National Oceanic and Atmospheric Administration's (NOAA) storm database (https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/). The data contains a lot of information (52 columns per file, one file per year), types of weather events, fatalities...for each state spanning from 1950 to 2021.  A subset of the data is used in this assignment, only data for Texas will be used, focusing on yearly tronado events and their associated F-scale (The Fujita Scale of Tornado Intensity, F0 -F5, with increasing estimated wind speeds). No data for 2014 was obtained, issue with downloaded source file, additionally, some tornadoes events did not have an associated F scale but they were included as "F?".
+
+
 
 ## 2. Houskeeping
 ```{r setup, warning=FALSE, message=FALSE}
@@ -30,10 +33,14 @@ T3 <- storm_data_s_TX %>%
        ungroup
 ```
 ## 4. Generate interactive stacked bar chart
-```{r plot_data}
-bchart<- plot_ly(T3, x = ~YEAR, y = ~cumul_twisters_y, type = 'bar', color= ~F_scale)
+```{r plot_data,echo = FALSE, eval = TRUE, warning=FALSE, message=FALSE}
+bchart<- plot_ly(T3, x = ~YEAR, y = ~cumul_twisters_y, 
+                 type = 'bar', color= ~F_scale)
 bchart <- bchart %>% layout(title = "Tornadoes in Texas 1950-2021", 
-                            yaxis = list(title = 'Tornadoe count'), barmode = 'stack',
-                            autosize = F, width = 900, height = 500)
+                            yaxis = list(title = 'Tornadoe count'), 
+                            barmode = 'stack',
+                            autosize = F, width = 800, height = 400)
 bchart
+
+
 ```
